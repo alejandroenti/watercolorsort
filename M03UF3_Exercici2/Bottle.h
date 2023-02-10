@@ -13,4 +13,5 @@ struct Bottle
 	bool CheckIfCanClearBottle();
 	char GetIconToClear();
 	void SetIconToFill(char icon);
+	bool IsBottleFilled();
 };

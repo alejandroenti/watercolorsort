@@ -41,3 +41,16 @@ void Bottle::SetIconToFill(char icon) {
 	}
 
 }
+
+bool Bottle::IsBottleFilled() {
+
+	char icon = liquids[2].icon;
+
+	for (int i = 0; i < TOTAL_LIQUIDS_IN_BOTTLE; i++) {
+		if (liquids[i].icon != icon && liquids[i].icon != ' ') {
+			return false;
+		}
+	}
+
+	return true;
+}

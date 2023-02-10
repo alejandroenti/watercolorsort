@@ -11,12 +11,32 @@ void MainManager::Game() {
 		case MENU:
 			break;
 		case GAME:
+			
+			if (moves == 0) {
+				currentScene = GAMEOVER;
+				continue;
+			}
+
 			b.PrintBoard();
+			PrintMovesLeft();
 			DemandBottleToFill();
 			DemandBottleToClear();
 			b.bottles[bottleToFill].SetIconToFill(b.bottles[bottleToClear].GetIconToClear());
+			
+			if (CheckIfPlayerHasWin()){
+				hasWin = true;
+				currentScene = GAMEOVER;
+			}
+			
+			moves--;
 			break;
 		case SCOREBOARD:
+			break;
+		case GAMEOVER:
+			b.PrintBoard();
+			PrintMovesLeft();
+			//GetScore();
+			//DemandUserName();
 			break;
 		case EXIT:
 			break;
@@ -29,6 +49,12 @@ void MainManager::Game() {
 
 	}
 
+}
+
+void MainManager::PrintMovesLeft() {
+
+	std::cout << "\n Moves left: " << moves << std::endl;
+	std::cout << "\n Has Win: " << hasWin << std::endl;
 }
 
 void MainManager::DemandBottleToFill() {
@@ -103,4 +129,14 @@ void MainManager::DemandBottleToClear() {
 
 	} while (!canClear);
 
+}
+
+bool MainManager::CheckIfPlayerHasWin() {
+
+	for (int i = 0; i < TOTAL_BOTTLES; i++) {
+		if (!b.bottles[i].IsBottleFilled())
+			return false;
+	}
+
+	return true;
 }
