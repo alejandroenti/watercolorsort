@@ -26,6 +26,7 @@ char Bottle::GetIconToClear() {
 		if (liquids[i].icon != ' ') {
 			icon = liquids[i].icon;
 			liquids[i].icon = ' ';
+			total_liquids--;
 			return icon;
 		}
 	}
@@ -36,6 +37,7 @@ void Bottle::SetIconToFill(char icon) {
 	for (int i = TOTAL_LIQUIDS_IN_BOTTLE - 1; i >= 0; i--) {
 		if (liquids[i].icon == ' ') {
 			liquids[i].icon = icon;
+			total_liquids++;
 			break;
 		}
 	}

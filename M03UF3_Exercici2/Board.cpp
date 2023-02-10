@@ -19,12 +19,14 @@ void Board::InitBoard() {
 		for (int j = TOTAL_LIQUIDS_IN_BOTTLE - 1; j > 0; j--) {
 			bottles[i].StartFilling(j);
 		}
+		bottles[i].total_liquids = 2;
 	}
 
 	for (int i = 0; i < TOTAL_BOTTLES; i++) {
 
 		if (i == fullBottles[0] || i == fullBottles[1]) {
 			bottles[i].StartFilling(0);
+			bottles[i].total_liquids = 3;
 			continue;
 		}
 		

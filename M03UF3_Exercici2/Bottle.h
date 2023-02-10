@@ -7,6 +7,7 @@ struct Bottle
 {
 
 	Liquids liquids[TOTAL_LIQUIDS_IN_BOTTLE];
+	int total_liquids;
 
 	void StartFilling(int position);
 	bool CheckIfCanFillBottle();

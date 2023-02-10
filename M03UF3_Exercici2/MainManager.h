@@ -20,7 +20,7 @@ struct MainManager
 	int bottleToClear;
 
 	bool hasWin = false;
-	int score;
+	int score = 0;
 	std::string name;
 
 	void Game();
@@ -28,5 +28,8 @@ struct MainManager
 	void DemandBottleToFill();
 	void DemandBottleToClear();
 	bool CheckIfPlayerHasWin();
-
+	void GetScore();
+	void PrintScore();
+	void DemandUserName();
+	bool StillPlaying();
 };

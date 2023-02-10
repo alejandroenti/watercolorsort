@@ -19,6 +19,13 @@ void MainManager::Game() {
 
 			b.PrintBoard();
 			PrintMovesLeft();
+			
+			if (StillPlaying()) {
+				currentScene = GAMEOVER;
+				hasWin = false;
+				continue;
+			}
+
 			DemandBottleToFill();
 			DemandBottleToClear();
 			b.bottles[bottleToFill].SetIconToFill(b.bottles[bottleToClear].GetIconToClear());
@@ -33,12 +40,21 @@ void MainManager::Game() {
 		case SCOREBOARD:
 			break;
 		case GAMEOVER:
+
 			b.PrintBoard();
 			PrintMovesLeft();
-			//GetScore();
-			//DemandUserName();
+			GetScore();
+			PrintScore();
+			DemandUserName();
+			//SaveScore();
+			currentScene = MENU;
 			break;
 		case EXIT:
+
+			isPlaying = false;
+
+			std::cout << "\n Goodbye! See you next time" << std::endl;
+
 			break;
 		default:
 			break;
@@ -54,7 +70,7 @@ void MainManager::Game() {
 void MainManager::PrintMovesLeft() {
 
 	std::cout << "\n Moves left: " << moves << std::endl;
-	std::cout << "\n Has Win: " << hasWin << std::endl;
+	
 }
 
 void MainManager::DemandBottleToFill() {
@@ -136,6 +152,57 @@ bool MainManager::CheckIfPlayerHasWin() {
 	for (int i = 0; i < TOTAL_BOTTLES; i++) {
 		if (!b.bottles[i].IsBottleFilled())
 			return false;
+	}
+
+	return true;
+}
+
+void MainManager::GetScore() {
+
+	for (int i = 0; i < TOTAL_BOTTLES; i++) {
+		
+		if (b.bottles[i].IsBottleFilled() && b.bottles[i].total_liquids == 0) {
+			score += 50;
+			continue;
+		}
+
+		if (b.bottles[i].IsBottleFilled()) {
+			score += b.bottles[i].total_liquids * 10;
+		}
+	}
+
+	score += moves * 3;
+
+}
+
+void MainManager::PrintScore() {
+
+
+	if (hasWin) {
+		std::cout << "\n You won!!! Your score is " << score << " ---> ";
+	}
+	else {
+		std::cout << "\n You lost!!! Your score is " << score << " ---> ";
+	}
+
+}
+
+void MainManager::DemandUserName() {
+
+	std::cout << "Enter your name: ";
+	std::cin >> name;
+
+}
+
+bool MainManager::StillPlaying() {
+
+	char option;
+
+	std::cout << "\n What do you want to do? [play / finish] ";
+	std::cin >> option;
+
+	if (option == 'f') {
+		return false;
 	}
 
 	return true;
