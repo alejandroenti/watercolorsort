@@ -21,9 +21,8 @@ bool Bottle::CheckIfCanClearBottle() {
 char Bottle::GetIconToClear() {
 
 	char icon = ' ';
-	int position = 0;
 
-	for (int i = TOTAL_LIQUIDS_IN_BOTTLE - 1; i >= 0; i--) {
+	for (int i = 0; i < TOTAL_LIQUIDS_IN_BOTTLE; i++) {
 		if (liquids[i].icon != ' ') {
 			icon = liquids[i].icon;
 			liquids[i].icon = ' ';

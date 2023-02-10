@@ -14,7 +14,7 @@ void MainManager::Game() {
 			b.PrintBoard();
 			DemandBottleToFill();
 			DemandBottleToClear();
-			b.bottles[bottleToFill - 1].SetIconToFill(b.bottles[bottleToClear - 1].GetIconToClear());
+			b.bottles[bottleToFill].SetIconToFill(b.bottles[bottleToClear].GetIconToClear());
 			break;
 		case SCOREBOARD:
 			break;
@@ -48,7 +48,9 @@ void MainManager::DemandBottleToFill() {
 			continue;
 		}
 
-		canFill = b.bottles[bottleToFill - 1].CheckIfCanFillBottle();
+		bottleToFill -= 1;
+
+		canFill = b.bottles[bottleToFill].CheckIfCanFillBottle();
 		
 		if (!canFill) {
 			std::cout << " [!] Bottle selected can not be filled." << std::endl;
@@ -56,7 +58,7 @@ void MainManager::DemandBottleToFill() {
 			continue;
 		}
 
-		std::cout << " [*] Bottle number " << bottleToFill << " selected.\n" << std::endl;
+		std::cout << " [*] Bottle number " << bottleToFill + 1 << " selected.\n" << std::endl;
 
 	} while (!canFill);
 
@@ -79,6 +81,8 @@ void MainManager::DemandBottleToClear() {
 			canClear = false;
 			continue;
 		}
+		
+		bottleToClear -= 1;
 
 		if (bottleToClear == bottleToFill) {
 			std::cout << " [!] Bottle already selected to fill." << std::endl;
@@ -87,7 +91,7 @@ void MainManager::DemandBottleToClear() {
 			continue;
 		}
 
-		canClear = b.bottles[bottleToClear - 1].CheckIfCanClearBottle();
+		canClear = b.bottles[bottleToClear].CheckIfCanClearBottle();
 
 		if (!canClear) {
 			std::cout << " [!] Bottle selected can not be cleared to fill another bottle." << std::endl;
@@ -95,7 +99,7 @@ void MainManager::DemandBottleToClear() {
 			continue;
 		}
 
-		std::cout << " [*] Bottle number " << bottleToClear << " selected.\n" << std::endl;
+		std::cout << " [*] Bottle number " << bottleToClear + 1 << " selected.\n" << std::endl;
 
 	} while (!canClear);
 
