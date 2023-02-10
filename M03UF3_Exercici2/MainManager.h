@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 #include "Functionalities.h"
 #include "Board.h"
@@ -32,4 +33,5 @@ struct MainManager
 	void PrintScore();
 	void DemandUserName();
 	bool StillPlaying();
+	void SaveScore();
 };

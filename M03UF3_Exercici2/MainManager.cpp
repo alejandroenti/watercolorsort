@@ -46,7 +46,7 @@ void MainManager::Game() {
 			GetScore();
 			PrintScore();
 			DemandUserName();
-			//SaveScore();
+			SaveScore();
 			currentScene = MENU;
 			break;
 		case EXIT:
@@ -206,4 +206,18 @@ bool MainManager::StillPlaying() {
 	}
 
 	return true;
+}
+
+void MainManager::SaveScore() {
+
+	size_t size = name.size();
+
+	std::ofstream outFile;
+	outFile.open("scores.wcs", std::ios::out | std::ios::binary | std::ios::app);
+
+	outFile.write(reinterpret_cast<char*>(&name), sizeof(size_t));
+	outFile.write(name.c_str(), sizeof(char) * size);
+	outFile.write(reinterpret_cast<char*>(&score), sizeof(int));
+
+	outFile.close();
 }
