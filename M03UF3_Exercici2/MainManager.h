@@ -22,6 +22,7 @@ struct MainManager
 
 	bool hasWin;
 	int score;
+	int total_scores;
 	std::string name;
 
 	void Start();
@@ -35,4 +36,5 @@ struct MainManager
 	void DemandUserName();
 	bool StillPlaying();
 	void SaveScore();
+	void LoadScores();
 };

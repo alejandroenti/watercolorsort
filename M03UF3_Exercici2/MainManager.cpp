@@ -4,6 +4,7 @@ void MainManager::Start() {
 
 	currentScene = MENU;
 	score = 0;
+	total_scores = 0;
 	hasWin = false;
 
 	b.InitBoard();
@@ -73,7 +74,8 @@ void MainManager::Game() {
 			moves--;
 			break;
 		case SCOREBOARD:
-			std::cout << "Scores" << std::endl;
+			std::cout << " ---------- H I G H S C O R E S ----------\n" << std::endl;
+			LoadScores();
 			currentScene = MENU;
 			break;
 		case GAMEOVER:
@@ -252,9 +254,50 @@ void MainManager::SaveScore() {
 	std::ofstream outFile;
 	outFile.open("scores.wcs", std::ios::out | std::ios::binary | std::ios::app);
 
-	outFile.write(reinterpret_cast<char*>(&name), sizeof(size_t));
+	outFile.write(reinterpret_cast<char*>(&size), sizeof(size_t));
 	outFile.write(name.c_str(), sizeof(char) * size);
 	outFile.write(reinterpret_cast<char*>(&score), sizeof(int));
 
 	outFile.close();
+
+	total_scores++;
+}
+
+void MainManager::LoadScores() {
+
+	size_t readSize;
+	std::string readString;
+	int readScore;
+
+	std::ifstream inFile;
+	inFile.open("scores.wcs", std::ios::in | std::ios::binary);
+
+	if (!inFile.is_open()) {
+		std::cout << " [!] There is no Score to load..." << std::endl;
+		inFile.close();
+		return;
+	}
+
+	std::string line;
+
+	for (int i = 0; i < total_scores; i++) {
+
+		inFile.read(reinterpret_cast<char*>(&readSize), sizeof(size_t));
+
+		char* temp = new char[readSize + 1];
+		inFile.read(temp, readSize);
+		temp[readSize] = '\0';
+		readString = temp;
+
+		delete[] temp;
+
+		inFile.read(reinterpret_cast<char*>(&readScore), sizeof(int));
+
+		std::cout << " " << readString << ": " << readScore << std::endl;
+
+	}
+
+	std::cout << std::endl;
+
+	inFile.close();
 }
