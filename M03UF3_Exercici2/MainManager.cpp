@@ -1,14 +1,47 @@
 #include "MainManager.h"
 
+void MainManager::Start() {
+
+	currentScene = MENU;
+	score = 0;
+	hasWin = false;
+
+	b.InitBoard();
+}
+
 void MainManager::Game() {
 
 	bool isPlaying = true;
-	b.InitBoard();
+	char menuOption;
+	
+	Start();
 
 	while (isPlaying) {
 
 		switch (currentScene) {
 		case MENU:
+			std::cout << " ----- W A T E R  C O L O R  S O R T -----\n" << std::endl;
+			std::cout << " 1 - New game" << std::endl;
+			std::cout << " 2 - Scores" << std::endl;
+			std::cout << " 3 - Exit\n" << std::endl;
+
+			std::cout << " Decision: ";
+			std::cin >> menuOption;
+
+			switch (menuOption) {
+			case '1':
+				currentScene = GAME;
+				break;
+			case '2':
+				currentScene = SCOREBOARD;
+				break;
+			case '3':
+				currentScene = EXIT;
+				break;
+			default:
+				std::cout << " [!] Wrong option! Try again..." << std::endl;
+			}
+
 			break;
 		case GAME:
 			
@@ -20,9 +53,11 @@ void MainManager::Game() {
 			b.PrintBoard();
 			PrintMovesLeft();
 			
-			if (StillPlaying()) {
+			if (!StillPlaying()) {
 				currentScene = GAMEOVER;
 				hasWin = false;
+				system("pause");
+				system("cls");
 				continue;
 			}
 
@@ -38,6 +73,8 @@ void MainManager::Game() {
 			moves--;
 			break;
 		case SCOREBOARD:
+			std::cout << "Scores" << std::endl;
+			currentScene = MENU;
 			break;
 		case GAMEOVER:
 

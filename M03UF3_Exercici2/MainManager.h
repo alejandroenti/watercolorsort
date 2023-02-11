@@ -12,7 +12,7 @@ struct MainManager
 
 	enum Scenes { MENU, GAME, SCOREBOARD, GAMEOVER, EXIT };
 
-	Scenes currentScene = GAME;
+	Scenes currentScene;
 
 	Board b;
 
@@ -20,10 +20,11 @@ struct MainManager
 	int bottleToFill;
 	int bottleToClear;
 
-	bool hasWin = false;
-	int score = 0;
+	bool hasWin;
+	int score;
 	std::string name;
 
+	void Start();
 	void Game();
 	void PrintMovesLeft();
 	void DemandBottleToFill();

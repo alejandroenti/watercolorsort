@@ -36,6 +36,8 @@ void Board::InitBoard() {
 
 void Board::PrintBoard() {
 
+	std::cout << " ----- W A T E R  C O L O R  S O R T -----\n" << std::endl;
+
 	for (int i = 0; i < TOTAL_BOTTLES; i++) {
 		std::cout << " \\ / ";
 	}
